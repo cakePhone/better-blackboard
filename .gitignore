@@ -23,3 +23,5 @@ Cargo.lock
 bun.lockb
 
 node_modules
+
+.svelte-kit
