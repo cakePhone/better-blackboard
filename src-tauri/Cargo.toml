@@ -1,8 +1,8 @@
 [package]
 name = "better-blackboard"
 version = "0.1.0"
-description = "A dead-simple, jankless BlacBoard interface."
-authors = ["cakePhone"]
+description = "A Tauri App"
+authors = ["you"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -23,4 +23,5 @@ tauri-plugin-opener = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tauri-plugin-fs = "2"
+tauri-plugin-log = "2"
 

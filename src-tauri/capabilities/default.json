@@ -8,6 +8,10 @@
   "permissions": [
     "core:default",
     "opener:default",
-    "fs:default"
+    "fs:create-app-specific-dirs",
+    "fs:read-app-specific-dirs-recursive",
+    "fs:allow-appconfig-read-recursive",
+    "fs:allow-appconfig-write-recursive",
+    "log:default"
   ]
 }
