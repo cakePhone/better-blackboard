@@ -12,6 +12,7 @@
     "fs:read-app-specific-dirs-recursive",
     "fs:allow-appconfig-read-recursive",
     "fs:allow-appconfig-write-recursive",
+    "fs:allow-document-read-recursive",
     "log:default"
   ]
 }

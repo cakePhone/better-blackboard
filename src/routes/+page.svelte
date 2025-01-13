@@ -1,13 +1,20 @@
 <script lang="ts">
-  import { read_app_config } from "$lib/app_config";
+  import { read_app_config, type AppConfig } from "$lib/app_config";
+  import { make_file_tree, type FileTree } from "$lib/file-system";
   import { info } from "@tauri-apps/plugin-log";
   import { onMount } from "svelte";
+  import FileTreeDisplay from "../components/fileTreeDisplay.svelte";
 
-  const app_config = $state({ blackboard_download_dir: "" });
+  let app_config: AppConfig = $state({ blackboard_download_dir: "" });
+  let dirs: FileTree = $state([]);
 
   onMount(async () => {
     try {
       const config = await read_app_config();
+      app_config = config;
+
+      dirs = await make_file_tree(config.blackboard_download_dir);
+      info(JSON.stringify(dirs, null, 2));
     } catch (err: any) {
       info(err.toString());
     }
@@ -16,6 +23,11 @@
 
 <main class="container">
   <h1>Welcome to Tauri + Svelte</h1>
+  <p>{JSON.stringify(app_config)}</p>
+  <br />
+  {#if dirs}
+    <FileTreeDisplay file_tree={dirs} />
+  {/if}
 </main>
 
 <style>
