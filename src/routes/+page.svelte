@@ -3,7 +3,7 @@
   import { make_file_tree, type FileTree } from "$lib/file-system";
   import { info } from "@tauri-apps/plugin-log";
   import { onMount } from "svelte";
-  import FileTreeDisplay from "../components/fileTreeDisplay.svelte";
+  import FileTreeDisplay from "$lib/components/fileTreeDisplay.svelte";
 
   let app_config: AppConfig = $state({ blackboard_download_dir: "" });
   let dirs: FileTree = $state([]);
