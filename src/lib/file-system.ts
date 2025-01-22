@@ -43,7 +43,7 @@ export async function make_file_tree(dir: string): Promise<FileTree> {
 
 export function make_file_data(dir: string, entry: DirEntry, entry_stat: FileInfo): FileData {
   return {
-    name: entry.name,
+    name: entry.name.replace(/\[.*?\]/g, ''), // remove year and course information from title
     type: get_file_extension(entry.name),
     path: dir,
 
