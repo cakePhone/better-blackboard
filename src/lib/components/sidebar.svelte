@@ -7,8 +7,9 @@
   };
 
   let { classes }: SidebarProps = $props();
+  let collapsed = $state(false);
 
-  let collapsed: boolean = $state(false);
+  let force_collapse = $derived(console.log(window.innerWidth <= 600));
 
   let collapse_icon: string = $derived(
     collapsed ? "mynaui:panel-left-open" : "mynaui:panel-left-close",
@@ -19,11 +20,15 @@
   {#if !collapsed}
     <h2>Classes</h2>
     <div class="classes__container">
-      {#each classes as c}
-        <a href={`classes/${encodeURI(c.info?.name ?? "")}`}>
-          {c.info?.name}
-        </a>
-      {/each}
+      {#if classes.length == 0}
+        <p>Loading classes...</p>
+      {:else}
+        {#each classes as c}
+          <a href={`/classes/${encodeURI(c.info?.name ?? "")}`}>
+            {c.info?.name}
+          </a>
+        {/each}
+      {/if}
     </div>
   {/if}
   <button
@@ -40,23 +45,30 @@
     --padding-top: 0.5rem;
 
     position: relative;
-    background: var(--grey-200);
+    background: var(--grey-300);
     color: white;
 
     padding: var(--padding-top) 1.25rem;
 
     height: calc(100vh - 2 * var(--padding-top));
+    min-width: 14rem;
+    width: 14rem;
 
-    border-right: 1px solid var(--grey-300);
+    border-right: 1px solid var(--grey-400);
   }
 
   .classes__container {
     display: grid;
     row-gap: 1rem;
+
+    max-height: calc(100vh - 2 * var(--padding-top) - 4rem);
+
+    overflow: scroll;
   }
 
   .collapsed {
     width: 2rem;
+    min-width: 0;
   }
 
   .collapse_button {
@@ -80,6 +92,10 @@
     background: var(--grey-200);
   }
 
+  .collapse_button:hover {
+    background: var(--grey-50);
+  }
+
   a {
     display: block;
 
@@ -90,7 +106,11 @@
     border-radius: 1rem;
 
     color: var(--text-light);
-    background: var(--grey-400);
+    background: var(--grey-200);
+  }
+
+  a:hover {
+    background: var(--grey-50);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -112,6 +132,7 @@
       color: var(--text-dark);
       background: var(--grey-900);
     }
+
     a:hover {
       background: var(--grey-800);
     }
