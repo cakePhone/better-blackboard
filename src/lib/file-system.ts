@@ -1,4 +1,4 @@
-import { exists, BaseDirectory, readDir, type DirEntry, lstat, type FileInfo } from '@tauri-apps/plugin-fs';
+import { BaseDirectory, readDir, type DirEntry, lstat, type FileInfo } from '@tauri-apps/plugin-fs';
 
 export type FileTree = {
   info: FileData | undefined; // Information about the current file/directory
