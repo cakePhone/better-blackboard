@@ -48,6 +48,8 @@
     background: var(--grey-300);
     color: white;
 
+    flex: 0;
+
     padding: var(--padding-top) 1.25rem;
 
     height: calc(100vh - 2 * var(--padding-top));
@@ -68,7 +70,7 @@
 
   .collapsed {
     width: 2rem;
-    min-width: 0;
+    min-width: 2rem;
   }
 
   .collapse_button {

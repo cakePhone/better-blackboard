@@ -13,9 +13,13 @@
     display: grid;
     width: 100%;
     justify-content: center;
+
+    overflow-x: scroll;
   }
 
   .page {
-    width: 1024px;
+    width: 100%;
+    max-width: 1024px;
+    min-width: 600px;
   }
 </style>
