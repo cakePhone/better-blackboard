@@ -43,10 +43,4 @@
   main {
     display: flex;
   }
-
-  @media (max-width: 600) {
-    main {
-      grid-template-columns: 2rem 100%;
-    }
-  }
 </style>
