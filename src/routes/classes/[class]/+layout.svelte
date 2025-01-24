@@ -18,8 +18,9 @@
   }
 
   .page {
-    width: 100%;
+    width: calc(100% - 4rem);
+    margin: 0 2rem;
     max-width: 1024px;
-    min-width: 600px;
+    min-width: 400px;
   }
 </style>
