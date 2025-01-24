@@ -4,17 +4,21 @@ import type { FileTree } from "./file-system";
 
 const app_cache_dir: { baseDir: BaseDirectory } = { baseDir: BaseDirectory.AppCache }
 
-export async function read_class_cache(): Promise<FileTree | undefined> {
+/**
+ * Reads a cache file with file_name, must be JSON
+ * @param file_name string - the file_name to store config, must be JSON
+  */
+export async function read_cache(file_name: string): Promise<object | undefined> {
   try {
-    const cache_exists = await exists("class_cache.json", app_cache_dir);
+    const cache_exists = await exists(file_name, app_cache_dir);
 
     if (cache_exists) {
-      const cache_file = await readTextFile("class_cache.json", app_cache_dir);
+      const cache_file = await readTextFile(file_name, app_cache_dir);
       const parsed_cache = JSON.parse(cache_file);
 
       return parsed_cache as FileTree;
     } else {
-      create_cache()
+      create_cache_file(file_name, {})
       return undefined;
     }
   } catch (err) {
@@ -23,11 +27,14 @@ export async function read_class_cache(): Promise<FileTree | undefined> {
   }
 }
 
-export async function write_class_cache(cache: FileTree): Promise<void> {
+/**
+ * Writes an object to the specified cache file as json
+ */
+export async function write_cache_file(file_name: string, content: object): Promise<void> {
   try {
-    const cache_file: FileHandle = await create("class_cache.json", app_cache_dir)
+    const cache_file: FileHandle = await create(file_name, app_cache_dir)
 
-    await cache_file.write(new TextEncoder().encode(JSON.stringify(cache)))
+    await cache_file.write(new TextEncoder().encode(JSON.stringify(content)))
     await cache_file.close();
   } catch (err) {
     error(`Failed to write cache file: ${err}`)
@@ -35,15 +42,16 @@ export async function write_class_cache(cache: FileTree): Promise<void> {
   }
 }
 
-export async function create_cache(): Promise<void> {
+export async function create_cache_file(file_name: string, content: {}): Promise<void> {
   try {
     const dir_exists = await exists("", app_cache_dir);
     if (!dir_exists) {
       await mkdir("", app_cache_dir)
     }
-    await create("class_cache.json", app_cache_dir)
+    const cache_file: FileHandle = await create(file_name, app_cache_dir)
+    await write_cache_file(file_name, content)
 
-    info("Created class_cache.json")
+    info(`Created ${file_name}`)
   } catch (err) {
     error(`Failed to make cache: ${err}`)
   }
