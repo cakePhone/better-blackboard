@@ -10,20 +10,21 @@
 
 <style>
   .layout {
-    display: grid;
-    max-height: 100vh;
-    width: 100%;
-    justify-content: center;
+    display: flex;
 
-    overflow-x: scroll;
+    max-height: 100vh;
+    max-width: 1024px;
+    min-width: 400px;
+    width: 100%;
+
+    margin-inline: auto;
+
     overflow-y: scroll;
   }
 
   .page {
-    margin: 0 2rem;
+    padding-inline: 2rem;
 
-    max-width: 1024px;
-    width: calc(100% - 4rem);
-    min-width: 400px;
+    flex-grow: 1;
   }
 </style>

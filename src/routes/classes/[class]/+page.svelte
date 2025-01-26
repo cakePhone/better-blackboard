@@ -19,10 +19,22 @@
 </script>
 
 <h1>{class_title}</h1>
-{#each content as c}
-  {#if c.info?.isDirectory}
-    <Directory dir={c} />
-  {:else}
-    <File file={c} />
-  {/if}
-{/each}
+<div>
+  {#each content as c}
+    {#if c.info?.isDirectory}
+      <Directory dir={c} depth={0} />
+    {:else}
+      <File file={c} />
+    {/if}
+  {/each}
+</div>
+
+<style>
+  div {
+    display: grid;
+    max-width: 100%;
+    gap: 1rem;
+
+    padding-block: 1rem;
+  }
+</style>
