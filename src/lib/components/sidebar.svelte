@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { afterNavigate } from "$app/navigation";
   import type { FileTree } from "$lib/file-system";
   import Icon from "@iconify/svelte";
 
@@ -9,34 +10,59 @@
   let { classes }: SidebarProps = $props();
   let collapsed = $state(false);
 
-  let force_collapse = $derived(console.log(window.innerWidth <= 600));
+  let winWidth: number = $state(0);
+  let isMobile: boolean = $derived(winWidth < 600);
 
   let collapse_icon: string = $derived(
     collapsed ? "mynaui:panel-left-open" : "mynaui:panel-left-close",
   );
+
+  // Collapse sidebar when a mobile user clicks a link
+  afterNavigate(() => {
+    if (isMobile) {
+      collapsed = true;
+    }
+  });
 </script>
+
+<svelte:window bind:innerWidth={winWidth} />
 
 <div class="main" class:collapsed>
   {#if !collapsed}
     <h2>Classes</h2>
-    <div class="classes__container">
-      {#if classes.length == 0}
-        <p>Loading classes...</p>
-      {:else}
-        {#each classes as c}
-          <a href={`/classes/${encodeURI(c.info?.name ?? "")}`}>
-            {c.info?.name}
-          </a>
-        {/each}
-      {/if}
-    </div>
   {/if}
+  {#if classes.length == 0}
+    <p>Loading classes...</p>
+  {:else}
+    <nav>
+      {#each classes as c}
+        <a href={`/classes/${encodeURI(c.info?.name ?? "")}`}>
+          {collapsed ? c.info?.name.charAt(1) : c.info?.name}
+        </a>
+      {/each}
+    </nav>
+  {/if}
+
+  <!-- Normal Icon -->
   <button
     class="collapse_button"
     title={collapsed ? "Open Sidebar" : "Collapse Sidebar"}
     onmousedown={() => (collapsed = !collapsed)}
   >
-    <Icon icon={collapse_icon} height="100%" />
+    <Icon
+      icon={collapse_icon}
+      height={collapsed ? "1.25rem" : "100%"}
+      width="100%"
+    />
+  </button>
+
+  <!-- Mobile Icon -->
+  <button
+    class="hamburger_button"
+    title={collapsed ? "Open Sidebar" : "Collapse Sidebar"}
+    onmousedown={() => (collapsed = !collapsed)}
+  >
+    <Icon icon="mynaui:menu" height="100%" />
   </button>
 </div>
 
@@ -59,7 +85,7 @@
     border-right: 1px solid var(--grey-400);
   }
 
-  .classes__container {
+  nav {
     display: grid;
     row-gap: 1rem;
 
@@ -69,15 +95,14 @@
   }
 
   .collapsed {
-    width: 2rem;
-    min-width: 2rem;
+    width: 3rem;
+    min-width: 3rem;
+
+    --padding-top: 4.5rem;
+    padding-inline: 1rem;
   }
 
-  .collapse_button {
-    position: absolute !important;
-    top: 1.25rem;
-    right: 1.25rem;
-
+  button {
     border: none;
     outline: none;
 
@@ -94,8 +119,25 @@
     background: var(--grey-200);
   }
 
-  .collapse_button:hover {
+  button:hover {
     background: var(--grey-50);
+  }
+
+  .hamburger_button {
+    display: none;
+    position: fixed !important;
+    top: 1.25rem;
+    left: 1.25rem;
+  }
+
+  .collapse_button {
+    position: absolute !important;
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .collapsed .collapse_button {
+    width: 2.5rem;
   }
 
   a {
@@ -115,18 +157,56 @@
     background: var(--grey-50);
   }
 
+  .collapsed a {
+    border-radius: 0.5rem;
+    padding: 0.5rem 0 0.3rem 0;
+    font-size: 14px;
+
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .main {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      height: 100vh;
+      width: calc(100vw - 2.5rem);
+    }
+
+    .collapsed {
+      left: -100%;
+    }
+
+    .hamburger_button {
+      display: block;
+      left: unset;
+      right: 1.25rem;
+    }
+
+    .collapsed .hamburger_button {
+      left: 1.25rem;
+      right: unset;
+    }
+
+    .collapse_button {
+      display: none;
+    }
+  }
+
   @media (prefers-color-scheme: dark) {
     .main {
       background: var(--grey-950);
       border-right-color: var(--grey-800);
     }
 
-    .collapse_button {
+    button {
       color: var(--text-dark);
       background: var(--grey-800);
     }
 
-    .collapse_button:hover {
+    button:hover {
       background: var(--grey-700);
     }
 
