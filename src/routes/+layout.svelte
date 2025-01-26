@@ -1,11 +1,18 @@
 <script lang="ts">
+  // Libs
   import { read_app_config, type AppConfig } from "$lib/app_config";
   import { read_cache, write_cache_file } from "$lib/app_cache";
   import { make_file_tree, type FileTree } from "$lib/file-system";
+  import { classes_store } from "$lib/classes_store";
+
+  // Frameworks
   import { info } from "@tauri-apps/plugin-log";
   import { onMount } from "svelte";
+
+  // Components
   import Sidebar from "$lib/components/sidebar.svelte";
 
+  // styles
   import "../styles/main.css";
 
   let { children } = $props();
@@ -17,11 +24,12 @@
 
   // read from cache until the file tree gets built
   // if cache doesn't exist, default to empty
-  let classes: FileTree[] = $derived(
-    bb_directory_tree?.nodes?.flatMap((year) => year.nodes) ??
+  $effect(() => {
+    $classes_store =
+      bb_directory_tree?.nodes?.flatMap((year) => year.nodes) ??
       cached_directory_tree?.nodes?.flatMap((year) => year.nodes) ??
-      [],
-  );
+      [];
+  });
 
   onMount(async () => {
     try {
@@ -44,7 +52,7 @@
 </script>
 
 <main class="container">
-  <Sidebar {classes} />
+  <Sidebar classes={$classes_store} />
   {@render children()}
 </main>
 
