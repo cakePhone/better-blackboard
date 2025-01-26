@@ -6,28 +6,35 @@
 
   type DirectoryProps = {
     dir: FileTree;
+    depth: number;
   };
 
-  let { dir }: DirectoryProps = $props();
+  let { dir, depth }: DirectoryProps = $props();
 
   let open = $state(false);
 
   let folder_icon: string = $derived(
-    open ? "mynaui:folder" : "mynaui:folder-solid",
+    open ? "mynaui:folder-two" : "mynaui:folder-two-solid",
   );
+
+  let chevron_rotation: string = $derived(open ? "180deg" : "");
 </script>
 
-<div class="parent">
+<div class="parent" style={`--depth: ${depth}`}>
   <button onmousedown={() => (open = !open)}>
-    <Icon icon={folder_icon} height="1rem" />
-    {dir.info?.name}
-    <Icon icon="mynaui:chevron-down" />
+    <Icon icon={folder_icon} height="1.5rem" />
+    <p>{dir.info?.name}</p>
+    <Icon
+      icon="mynaui:chevron-down"
+      height="1.5rem"
+      style={`rotate: ${chevron_rotation}`}
+    />
   </button>
   {#if open}
     <div class="children">
       {#each dir.nodes as child}
         {#if child.info?.isDirectory}
-          <Directory dir={child} />
+          <Directory dir={child} depth={depth + 1} />
         {:else}
           <File file={child} />
         {/if}
@@ -38,10 +45,15 @@
 
 <style>
   .parent {
+    border-radius: 0.5rem;
+
+    font-size: 1rem;
   }
 
   .children {
-    margin-left: 1rem;
+    display: grid;
+    gap: 0.5rem;
+    padding-left: 2rem;
   }
 
   button {
@@ -49,10 +61,17 @@
 
     gap: 1rem;
 
-    height: 100%;
+    height: 3rem;
     width: 100%;
 
     padding: 1rem;
+  }
+
+  p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 2rem * var(--depth));
   }
 
   @media (prefers-color-scheme: dark) {

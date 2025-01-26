@@ -10,6 +10,21 @@
 </script>
 
 <div>
-  <Icon icon="mynaui:file" />
-  {file?.info?.name}
+  <Icon icon="mynaui:file" height="1.5rem" />
+  <p>{file?.info?.name}</p>
 </div>
+
+<style>
+  div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 30rem;
+  }
+</style>
