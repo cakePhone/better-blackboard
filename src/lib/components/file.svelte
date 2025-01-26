@@ -1,11 +1,15 @@
 <script lang="ts">
-  import { type FileData } from "$lib/file-system";
+  import { type FileTree } from "$lib/file-system";
+  import Icon from "@iconify/svelte";
 
   type FileDisplayProps = {
-    file_info: FileData;
+    file: FileTree | undefined;
   };
 
-  let { file_info }: FileDisplayProps = $props();
+  let { file }: FileDisplayProps = $props();
 </script>
 
-<p>{file_info.name}</p>
+<div>
+  <Icon icon="mynaui:file" />
+  {file?.info?.name}
+</div>

@@ -102,38 +102,21 @@
     padding-inline: 1rem;
   }
 
-  button {
-    border: none;
-    outline: none;
-
-    height: 2rem;
-    width: 2rem;
-
-    color: var(--text-light);
-
-    display: grid;
-    align-items: center;
-
-    border-radius: 0.5rem;
-
-    background: var(--grey-200);
-  }
-
-  button:hover {
-    background: var(--grey-50);
-  }
-
   .hamburger_button {
     display: none;
     position: fixed !important;
     top: 1.25rem;
     left: 1.25rem;
+    height: 2rem;
+    width: 2rem;
   }
 
   .collapse_button {
     position: absolute !important;
     top: 1.25rem;
     right: 1.25rem;
+    height: 2rem;
+    width: 2rem;
   }
 
   .collapsed .collapse_button {
@@ -199,15 +182,6 @@
     .main {
       background: var(--grey-950);
       border-right-color: var(--grey-800);
-    }
-
-    button {
-      color: var(--text-dark);
-      background: var(--grey-800);
-    }
-
-    button:hover {
-      background: var(--grey-700);
     }
 
     a {
