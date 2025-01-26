@@ -63,6 +63,7 @@
     gap: 1rem;
 
     height: 3rem;
+
     width: 100%;
 
     padding: 1rem;
