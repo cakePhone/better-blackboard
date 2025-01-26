@@ -36,7 +36,7 @@
       );
 
       // make sure to update the cache by the end
-      await write_cache_file("cached_directory_tree", bb_directory_tree);
+      await write_cache_file("cached_directory_tree.json", bb_directory_tree);
     } catch (err: any) {
       info(err.toString());
     }
