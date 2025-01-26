@@ -60,6 +60,25 @@ li {
   color: var(--text-light);
 }
 
+button {
+  border: none;
+  outline: none;
+
+  color: var(--text-light);
+
+  display: grid;
+  align-items: center;
+
+  border-radius: 0.5rem;
+
+  background: var(--grey-200);
+}
+
+button:hover {
+  background: var(--grey-50);
+}
+
+
 @media (prefers-color-scheme: dark) {
   :root {
     color: var(--text-dark);
@@ -76,5 +95,14 @@ li {
   a,
   li {
     color: var(--text-dark);
+  }
+
+  button {
+    color: var(--text-dark);
+    background: var(--grey-800);
+  }
+
+  button:hover {
+    background: var(--grey-700);
   }
 }
