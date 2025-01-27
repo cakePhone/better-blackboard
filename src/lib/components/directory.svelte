@@ -31,15 +31,14 @@
     />
   </button>
   {#if open}
-    <hr />
     <div class="children">
       {#each dir.nodes as child}
+        <hr />
         {#if child.info?.isDirectory}
           <Directory dir={child} depth={depth + 1} />
         {:else}
           <File file={child} />
         {/if}
-        <hr />
       {/each}
     </div>
   {/if}
@@ -48,6 +47,7 @@
 <style>
   .parent {
     border-radius: 0.5rem;
+    background: var(--grey-300);
 
     font-size: 1rem;
   }
@@ -63,10 +63,11 @@
     gap: 1rem;
 
     height: 3rem;
-
     width: 100%;
 
     padding: 1rem;
+
+    background: var(--grey-300);
   }
 
   p {
@@ -78,7 +79,8 @@
 
   hr {
     margin: 0;
-    border: 1px solid var(--grey-200);
+    margin-right: calc(1rem * var(--depth));
+    border: 1px solid var(--grey-400);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -86,8 +88,12 @@
       background: var(--grey-800);
     }
 
+    button {
+      background: var(--grey-800);
+    }
+
     hr {
-      border-color: var(--grey-900);
+      border-color: var(--grey-700);
     }
   }
 </style>
