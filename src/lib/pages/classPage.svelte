@@ -37,6 +37,7 @@
     max-width: 1024px;
     min-width: 400px;
     width: 100%;
+    padding: 0.75rem;
 
     margin-inline: auto;
 
@@ -44,7 +45,6 @@
   }
 
   .page {
-    padding-top: 0.3rem;
     padding-inline: 2rem;
 
     flex-grow: 1;
@@ -56,5 +56,9 @@
     gap: 1rem;
 
     padding-block: 1rem;
+  }
+
+  h1 {
+    margin: 0;
   }
 </style>
