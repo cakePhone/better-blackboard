@@ -50,7 +50,7 @@
   </div>
 
   {#if classes.length == 0}
-    <p>Loading classes...</p>
+    <p>No classes found...</p>
   {:else}
     <nav>
       {#each classes as c}
@@ -83,6 +83,8 @@
     width: 14rem;
 
     border-right: 1px solid var(--grey-400);
+
+    z-index: 20;
   }
 
   h1 {
