@@ -23,6 +23,7 @@
   }
 
   .page {
+    padding-top: 0.3rem;
     padding-inline: 2rem;
 
     flex-grow: 1;
