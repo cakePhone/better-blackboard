@@ -101,6 +101,15 @@
     margin-left: -10rem;
   }
 
+  h1 {
+    margin: 0;
+  }
+
+  .collapsed h1 {
+    opacity: 0;
+    margin-left: -10rem;
+  }
+
   nav {
     display: grid;
     row-gap: 1rem;
