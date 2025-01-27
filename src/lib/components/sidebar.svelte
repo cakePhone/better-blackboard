@@ -136,7 +136,8 @@
     padding-inline: 1rem;
   }
 
-  button {
+  .hamburger_button,
+  .collapse_button {
     display: grid;
     place-items: center;
   }
@@ -161,11 +162,8 @@
   }
 
   .link {
-    display: block;
-
-    text-decoration: none;
-
     padding: 0.5rem 1rem;
+    text-align: start;
 
     border-radius: 1rem;
 

@@ -18,7 +18,6 @@
 
 <style>
   div {
-    padding: 3rem 0 0 5rem;
     width: 100%;
   }
 
