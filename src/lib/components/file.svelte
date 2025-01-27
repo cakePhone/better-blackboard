@@ -19,6 +19,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    padding: 1rem;
   }
 
   p {
@@ -26,5 +27,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 30rem;
+    margin: 0;
   }
 </style>

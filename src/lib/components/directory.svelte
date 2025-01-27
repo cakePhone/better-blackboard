@@ -31,6 +31,7 @@
     />
   </button>
   {#if open}
+    <hr />
     <div class="children">
       {#each dir.nodes as child}
         {#if child.info?.isDirectory}
@@ -38,6 +39,7 @@
         {:else}
           <File file={child} />
         {/if}
+        <hr />
       {/each}
     </div>
   {/if}
@@ -52,8 +54,7 @@
 
   .children {
     display: grid;
-    gap: 0.5rem;
-    padding-left: 2rem;
+    padding-left: 1rem;
   }
 
   button {
@@ -71,12 +72,21 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: calc(100% - 2rem * var(--depth));
+    max-width: calc(100% - 1rem * var(--depth));
+  }
+
+  hr {
+    margin: 0;
+    border: 1px solid var(--grey-200);
   }
 
   @media (prefers-color-scheme: dark) {
     .parent {
       background: var(--grey-800);
+    }
+
+    hr {
+      border-color: var(--grey-900);
     }
   }
 </style>
