@@ -1,5 +1,6 @@
 <script lang="ts">
   import { afterNavigate } from "$app/navigation";
+  import { current_class_store } from "$lib/classes_store";
   import type { FileTree } from "$lib/file-system";
   import Icon from "@iconify/svelte";
 
@@ -54,9 +55,13 @@
   {:else}
     <nav>
       {#each classes as c}
-        <a href={`/classes/${encodeURI(c.info?.name ?? "")}`}>
+        <button
+          class="link"
+          title={c.info?.name}
+          onmousedown={() => ($current_class_store = c.info?.name ?? "")}
+        >
           {collapsed ? c.info?.name.charAt(1) : c.info?.name}
-        </a>
+        </button>
       {/each}
     </nav>
   {/if}
@@ -146,7 +151,7 @@
     width: 100%;
   }
 
-  a {
+  .link {
     display: block;
 
     text-decoration: none;
@@ -159,11 +164,11 @@
     background: var(--grey-200);
   }
 
-  a:hover {
+  .link:hover {
     background: var(--grey-50);
   }
 
-  .collapsed a {
+  .collapsed .link {
     border-radius: 0.5rem;
     padding-block: 0.5rem;
     font-size: 14px;
@@ -207,12 +212,12 @@
       border-right-color: var(--grey-800);
     }
 
-    a {
+    .link {
       color: var(--text-dark);
       background: var(--grey-900);
     }
 
-    a:hover {
+    .link:hover {
       background: var(--grey-800);
     }
   }

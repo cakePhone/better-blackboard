@@ -1,13 +1,18 @@
 <script lang="ts">
-  import { classes_store } from "$lib/classes_store";
+  import { classes_store, current_class_store } from "$lib/classes_store";
   import Tutorial from "$lib/components/tutorial.svelte";
+  import ClassPage from "$lib/pages/classPage.svelte";
 </script>
 
 <div>
-  <h1>CleanBoard</h1>
-  <h2 class="slogan">BlackBoard without all the chalk</h2>
-  {#if $classes_store.length != 0}
-    <Tutorial />
+  {#if $current_class_store == ""}
+    <h1>CleanBoard</h1>
+    <h2 class="slogan">BlackBoard without all the chalk</h2>
+    {#if $classes_store.length != 0}
+      <Tutorial />
+    {/if}
+  {:else}
+    <ClassPage render_class={$current_class_store} />
   {/if}
 </div>
 
