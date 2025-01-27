@@ -31,13 +31,12 @@
         "epoch": 0,
         "files": {},
         "release": "1",
-        // add the script here
         "preInstallScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
         "postInstallScript": "/path/to/your/project/src-tauri/scripts/postscript.sh",
         "preRemoveScript": "/path/to/your/project/src-tauri/scripts/prescript.sh",
         "postRemoveScript": "/path/to/your/project/src-tauri/scripts/postscript.sh"
       }
-    }
+    },
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
