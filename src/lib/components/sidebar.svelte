@@ -28,9 +28,27 @@
 <svelte:window bind:innerWidth={winWidth} />
 
 <div class="main" class:collapsed>
-  {#if !collapsed}
-    <h2>Classes</h2>
-  {/if}
+  <div class="sidebar_title">
+    <h1>Classes</h1>
+    <!-- Normal Icon -->
+    <button
+      class="collapse_button"
+      title={collapsed ? "Open Sidebar" : "Collapse Sidebar"}
+      onmousedown={() => (collapsed = !collapsed)}
+    >
+      <Icon icon={collapse_icon} height="1.25rem" width="1.25rem" />
+    </button>
+
+    <!-- Mobile Icon -->
+    <button
+      class="hamburger_button"
+      title={collapsed ? "Open Sidebar" : "Collapse Sidebar"}
+      onmousedown={() => (collapsed = !collapsed)}
+    >
+      <Icon icon="mynaui:menu" height="100%" />
+    </button>
+  </div>
+
   {#if classes.length == 0}
     <p>Loading classes...</p>
   {:else}
@@ -42,33 +60,15 @@
       {/each}
     </nav>
   {/if}
-
-  <!-- Normal Icon -->
-  <button
-    class="collapse_button"
-    title={collapsed ? "Open Sidebar" : "Collapse Sidebar"}
-    onmousedown={() => (collapsed = !collapsed)}
-  >
-    <Icon
-      icon={collapse_icon}
-      height={collapsed ? "1.25rem" : "100%"}
-      width="100%"
-    />
-  </button>
-
-  <!-- Mobile Icon -->
-  <button
-    class="hamburger_button"
-    title={collapsed ? "Open Sidebar" : "Collapse Sidebar"}
-    onmousedown={() => (collapsed = !collapsed)}
-  >
-    <Icon icon="mynaui:menu" height="100%" />
-  </button>
 </div>
 
 <style>
+  * {
+    transition: all 100ms ease-out;
+  }
+
   .main {
-    --padding-top: 0.5rem;
+    --padding-top: 1.25rem;
 
     position: relative;
     background: var(--grey-300);
@@ -85,21 +85,44 @@
     border-right: 1px solid var(--grey-400);
   }
 
+  h1 {
+    margin: 0;
+  }
+
+  .collapsed h1 {
+    opacity: 0;
+    margin-left: -10rem;
+  }
+
   nav {
     display: grid;
     row-gap: 1rem;
+
+    margin-top: 1rem;
 
     max-height: calc(100vh - 2 * var(--padding-top) - 4rem);
 
     overflow: scroll;
   }
 
+  .sidebar_title {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .collapsed {
     width: 3rem;
     min-width: 3rem;
 
-    --padding-top: 4.5rem;
+    --padding-top: 1.5rem;
     padding-inline: 1rem;
+  }
+
+  button {
+    display: grid;
+    place-items: center;
   }
 
   .hamburger_button {
@@ -112,15 +135,13 @@
   }
 
   .collapse_button {
-    position: absolute !important;
-    top: 1.25rem;
-    right: 1.25rem;
-    height: 2rem;
-    width: 2rem;
+    height: 2.25rem;
+    width: 2.25rem;
   }
 
   .collapsed .collapse_button {
-    width: 2.5rem;
+    height: 2.5rem;
+    width: 100%;
   }
 
   a {
@@ -128,7 +149,7 @@
 
     text-decoration: none;
 
-    padding: 0.7rem 1rem 0.5rem 1rem;
+    padding: 0.5rem 1rem;
 
     border-radius: 1rem;
 
@@ -142,7 +163,7 @@
 
   .collapsed a {
     border-radius: 0.5rem;
-    padding: 0.5rem 0 0.3rem 0;
+    padding-block: 0.5rem;
     font-size: 14px;
 
     text-align: center;
