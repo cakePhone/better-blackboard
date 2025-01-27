@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { FileTree } from "$lib/file-system";
+  import { info } from "@tauri-apps/plugin-log";
   import Directory from "./directory.svelte";
   import File from "./file.svelte";
   import Icon from "@iconify/svelte";
@@ -34,7 +35,7 @@
     <div class="children">
       {#each dir.nodes as child}
         <hr />
-        {#if child.info?.isDirectory}
+        {#if child.info?.isDirectory && !child.info.isUltraDocumentBody}
           <Directory dir={child} depth={depth + 1} />
         {:else}
           <File file={child} />

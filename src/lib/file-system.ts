@@ -16,6 +16,7 @@ export type FileData = {
   isDirectory: boolean,
   isFile: boolean,
   isSymlink: boolean,
+  isUltraDocumentBody: boolean,
 
   size: number,
 }
@@ -53,6 +54,7 @@ export function make_file_data(dir: string, entry: DirEntry, entry_stat: FileInf
     isDirectory: entry.isDirectory,
     isFile: entry.isFile,
     isSymlink: entry.isSymlink,
+    isUltraDocumentBody: entry.name == "ultraDocumentBody",
 
     size: entry_stat.size
   }

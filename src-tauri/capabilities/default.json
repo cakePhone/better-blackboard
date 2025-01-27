@@ -16,6 +16,7 @@
     "fs:allow-appcache-meta-recursive",
     "fs:allow-appcache-meta",
     "fs:allow-document-read-recursive",
-    "log:default"
+    "log:default",
+    "shell:default"
   ]
 }
