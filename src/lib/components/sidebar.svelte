@@ -186,11 +186,19 @@
   @media (max-width: 600px) {
     .main {
       position: fixed;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 1rem;
+
       top: 0;
       left: 0;
 
       height: 100vh;
-      width: calc(100vw - 2.5rem);
+      width: calc(100vw - 6rem);
+
+      padding-inline: 3rem;
     }
 
     .collapsed {
@@ -200,7 +208,7 @@
     .hamburger_button {
       display: block;
       left: unset;
-      right: 1.25rem;
+      right: 3rem;
     }
 
     .collapsed .hamburger_button {

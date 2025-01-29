@@ -19,6 +19,8 @@
 <style>
   div {
     width: 100%;
+    max-height: 100vh;
+    overflow-y: scroll;
   }
 
   h1 {
@@ -31,7 +33,7 @@
 
   @media (max-width: 600px) {
     div {
-      padding: 1rem;
+      padding-inline: 1rem;
     }
   }
 </style>

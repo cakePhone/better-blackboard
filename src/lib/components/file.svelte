@@ -15,6 +15,8 @@
 
   let document_directory: string = $state("");
 
+  let links_to: string | undefined = $derived(file?.info?.links_to);
+
   async function openFile(file: string | undefined) {
     if (file == "/" || typeof file == "undefined") return;
 
@@ -31,24 +33,21 @@
 <button
   popovertarget="popover"
   onmousedown={(e) => {
-    if (!file?.info?.isUltraDocumentBody) {
+    if (!file?.info?.isLink) {
       e.preventDefault();
       openFile(`${file?.info?.path ?? ""}/${file?.info?.name ?? ""}`);
+    } else {
+      info(`Clicked a link: ${file?.info?.links_to}`);
     }
-    info(
-      `${document_directory + "/" + file?.info?.path + "/" + file?.info?.name}/ultraDocumentBody.html`,
-    );
   }}
 >
-  <Icon icon="mynaui:file" height="1.5rem" />
+  <Icon icon="mynaui:file" height="1.5rem" style="min-width: 1.5rem;" />
   <p>{file?.info?.name}</p>
 </button>
 
-{#if file?.info?.isUltraDocumentBody}
+{#if file?.info?.isLink}
   <div popover="auto" id="popover">
-    {#await readTextFile( `${file?.info?.path}/${file?.info?.name}/ultraDocumentBody.html`, { baseDir: BaseDirectory.Document }, ) then content}
-      <p>{content}</p>
-    {/await}
+    <embed src={links_to} />
   </div>
 {/if}
 
@@ -56,20 +55,52 @@
   button {
     display: flex;
     align-items: center;
+
+    width: 100%;
+
     gap: 1rem;
     padding: 1rem;
+
+    border-top: 2px solid var(--grey-300);
   }
 
   p {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 30rem;
+
+    text-align: start;
+
     margin: 0;
   }
 
   #popover {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    translate: -50% -50%;
+
+    padding: 0;
+    margin: 0;
     width: 60vw;
     height: 80vh;
+  }
+
+  embed {
+    height: 100%;
+    width: 100%;
+  }
+
+  @media (max-width: 600px) {
+    button {
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    button {
+      border-color: var(--grey-700);
+    }
   }
 </style>

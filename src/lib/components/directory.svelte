@@ -23,18 +23,17 @@
 
 <div class="parent" style={`--depth: ${depth}`}>
   <button onmousedown={() => (open = !open)}>
-    <Icon icon={folder_icon} height="1.5rem" />
+    <Icon icon={folder_icon} height="1.5rem" style="min-width: 1.5rem;" />
     <p>{dir.info?.name}</p>
     <Icon
       icon="mynaui:chevron-down"
       height="1.5rem"
-      style={`rotate: ${chevron_rotation}`}
+      style={`rotate: ${chevron_rotation}; flex-shrink: 0;`}
     />
   </button>
   {#if open}
     <div class="children">
       {#each dir.nodes as child}
-        <hr />
         {#if child.info?.isDirectory && !child.info.isUltraDocumentBody}
           <Directory dir={child} depth={depth + 1} />
         {:else}
@@ -54,7 +53,6 @@
   }
 
   .children {
-    display: grid;
     padding-left: 1rem;
   }
 
@@ -72,16 +70,7 @@
   }
 
   p {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: calc(100% - 1rem * var(--depth));
-  }
-
-  hr {
-    margin: 0;
-    margin-right: calc(1rem * var(--depth));
-    border: 1px solid var(--grey-400);
+    text-align: start;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -91,10 +80,6 @@
 
     button {
       background: var(--grey-800);
-    }
-
-    hr {
-      border-color: var(--grey-700);
     }
   }
 </style>
