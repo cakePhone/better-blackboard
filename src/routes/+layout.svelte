@@ -14,10 +14,10 @@
 
   // styles
   import "../styles/main.css";
+  import { app_config } from "$lib/config_store";
+  import { onNavigate } from "$app/navigation";
 
   let { children } = $props();
-
-  let app_config: AppConfig = $state({ blackboard_download_dir: "" });
 
   let cached_directory_tree: FileTree | undefined = $state();
   let bb_directory_tree: FileTree | undefined = $state();
@@ -31,20 +31,29 @@
       [];
   });
 
+  async function setup() {
+    $app_config = await read_app_config();
+
+    cached_directory_tree = (await read_cache(
+      "cached_directory_tree.json",
+    )) as FileTree;
+
+    bb_directory_tree = await make_file_tree(
+      $app_config.blackboard_download_dir,
+    );
+
+    $classes_store =
+      bb_directory_tree?.nodes?.flatMap((year) => year.nodes) ??
+      cached_directory_tree?.nodes?.flatMap((year) => year.nodes) ??
+      [];
+
+    // make sure to update the cache by the end
+    await write_cache_file("cached_directory_tree.json", bb_directory_tree);
+  }
+
   onMount(async () => {
     try {
-      const app_config = await read_app_config();
-
-      cached_directory_tree = (await read_cache(
-        "cached_directory_tree.json",
-      )) as FileTree;
-
-      bb_directory_tree = await make_file_tree(
-        app_config.blackboard_download_dir,
-      );
-
-      // make sure to update the cache by the end
-      await write_cache_file("cached_directory_tree.json", bb_directory_tree);
+      await setup();
     } catch (err: any) {
       info(err.toString());
     }

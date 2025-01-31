@@ -3,6 +3,7 @@
   import { current_class_store } from "$lib/classes_store";
   import type { FileTree } from "$lib/file-system";
   import Icon from "@iconify/svelte";
+  import Settings from "./settings.svelte";
 
   type SidebarProps = {
     classes: FileTree[];
@@ -65,6 +66,14 @@
       {/each}
     </nav>
   {/if}
+  <button class="settings-button" popovertarget="settings">
+    <Icon icon="mynaui:cog" height="1.5rem" width="1.5rem" />
+    <p>Settings</p>
+  </button>
+
+  <div popover="auto" id="settings">
+    <Settings />
+  </div>
 </div>
 
 <style>
@@ -72,8 +81,19 @@
     transition: all 100ms ease-out;
   }
 
+  #settings {
+    background: none;
+
+    border: none;
+  }
+
   .main {
     --padding-top: 1.25rem;
+
+    display: flex;
+    gap: 1rem;
+
+    flex-direction: column;
 
     position: relative;
     background: var(--grey-300);
@@ -111,10 +131,11 @@
   }
 
   nav {
-    display: grid;
-    row-gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 
-    margin-top: 1rem;
+    flex-grow: 1;
 
     max-height: calc(100vh - 2 * var(--padding-top) - 4rem);
 
@@ -134,6 +155,19 @@
 
     --padding-top: 1.5rem;
     padding-inline: 1rem;
+  }
+
+  .settings-button {
+    display: flex;
+    gap: 0.5rem;
+
+    padding: 0.75rem;
+
+    height: fit-content;
+  }
+
+  .settings-button p {
+    margin: 0;
   }
 
   .hamburger_button,
@@ -164,6 +198,8 @@
   .link {
     padding: 0.5rem 1rem;
     text-align: start;
+
+    height: fit-content;
 
     border-radius: 1rem;
 

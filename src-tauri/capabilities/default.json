@@ -16,6 +16,13 @@
     "fs:allow-appcache-meta-recursive",
     "fs:allow-appcache-meta",
     "fs:allow-document-read-recursive",
+    "core:webview:allow-webview-show",
+    "core:webview:allow-webview-hide",
+    "core:window:allow-show",
+    "core:window:allow-hide",
+    "core:webview:allow-create-webview",
+    "core:webview:allow-create-webview-window",
+    "core:window:allow-create",
     "log:default",
     "shell:default"
   ]
