@@ -12,7 +12,18 @@
     "fs:read-app-specific-dirs-recursive",
     "fs:allow-appconfig-read-recursive",
     "fs:allow-appconfig-write-recursive",
+    "fs:allow-appcache-read-recursive",
+    "fs:allow-appcache-meta-recursive",
+    "fs:allow-appcache-meta",
     "fs:allow-document-read-recursive",
-    "log:default"
+    "core:webview:allow-webview-show",
+    "core:webview:allow-webview-hide",
+    "core:window:allow-show",
+    "core:window:allow-hide",
+    "core:webview:allow-create-webview",
+    "core:webview:allow-create-webview-window",
+    "core:window:allow-create",
+    "log:default",
+    "shell:default"
   ]
 }
