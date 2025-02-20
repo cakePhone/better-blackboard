@@ -23,6 +23,12 @@
       y: 0,
     });
 
+    webview.eval(`
+      setInterval(() => {
+        window.__TAURI__.event.emit("url-change", { url: window.location.href });
+      }, 500);
+      `);
+
     webview.once("tauri://created", async function (e) {
       console.log(e);
       console.log(webview.listeners);
